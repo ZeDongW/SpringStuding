@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    调用无参的构造方法-->
+    <bean id="user1" class="cn.zedongw.springstudy.entity.User"></bean>
+<!--    实际是调用无参的构造方法，后面自动赋值属性-->
+    <bean id="user2" class="cn.zedongw.springstudy.entity.User">
+        <property name="userName" value="张三"></property>
+        <property name="id" value="1"></property>
+    </bean>
+<!--    调用了带参的构造方法-->
+    <!--<bean id="user3" class="cn.zedongw.springstudy.entity.User">
+        <constructor-arg value="张三" index="1" name="userName" type="java.lang.String"></constructor-arg>
+        <constructor-arg value="2" index="0" name="id" type="int"></constructor-arg>
+    </bean>-->
+    <bean id="str" class="java.lang.String">
+        <constructor-arg value="张三"></constructor-arg>
+    </bean>
+    <bean id="user3" class="cn.zedongw.springstudy.entity.User">
+        <constructor-arg index="1" name="userName" type="java.lang.String" ref="str"></constructor-arg>
+        <constructor-arg value="2" index="0" name="id" type="int"></constructor-arg>
+    </bean>
+    <!-- 工厂非静态创建对象 -->
+    <bean id="factory" class="cn.zedongw.springstudy.b.createobj.UserFactory"></bean>
+    <bean id="user4" factory-bean="factory" factory-method="getInstance"></bean>
+    <!-- 工厂静态创建对象 -->
+    <bean id="user5" class="cn.zedongw.springstudy.b.createobj.UserFactory" factory-method="getStaticInstance"></bean>
+</beans>
